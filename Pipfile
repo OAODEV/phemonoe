@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+
+[packages]
+
+django = "*"
+"django-celery" = "*"
+djangorestframework = "*"
+jinjasql = "*"
+"django-cors-headers" = "*"
+arrow = "*"
+"dj-database-url" = "*"
+gunicorn = "*"
+# TODO: Remove whitenoise dependency and move static files to GCS
+whitenoise = "*"
+pyjwt = "*"
+croniter = "*"
+"social-auth-app-django" = "*"
+
+
+[requires]
+python_version = "2.7"

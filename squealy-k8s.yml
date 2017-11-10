@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: squealy
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: squealy
+    spec:
+      containers:
+      - name: squealy
+        image: us.gcr.io/lexical-cider-93918/squealy:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: QUERY_DB
+          value: postgres://schubert_reports_user@schubert-pgbouncer:6432/data_mart_schubert
+        - name: DATABASE_URL
+          value: postgres://squealy_user@schubert-pgbouncer:6432/squealy
+        - name: PGPASSFILE
+          value: '/secrets/.pgpass'
+        - name: ADMIN_USERNAME
+          value: administrator_x
+        - name: ADMIN_PASS
+          valueFrom:
+            secretKeyRef:
+              name: squealy
+              key: ADMIN_PASS
+        volumeMounts:
+        - name: pgpass
+          mountPath: /secrets/
+      volumes:
+      - name: pgpass
+        secret:
+          secretName: squealy-pgpass
+          defaultMode: 0400
+          items:
+          - key: .pgpass
+            mode: 0400
+            path: .pgpass

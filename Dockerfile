@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine
 MAINTAINER tym@adops.com
 
 # Install python and pipenv
